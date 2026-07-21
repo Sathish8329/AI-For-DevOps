@@ -274,6 +274,8 @@ Identify:
 
 The more relevant context you provide, the better the answer.
 
+> 💡 A prompt is a single instruction.
+> Prompt Engineering is the practice of designing better prompts to get better responses.
 ---
 
 # ⚙️ System Message
@@ -413,6 +415,7 @@ The AI Agent may:
 
 Instead of giving instructions, it performs the workflow using available tools.
 
+An AI Agent combines LLMs, Tool Calling, RAG, Memory, Planning, and Reasoning to complete tasks autonomously.
 
 ---
 
@@ -432,6 +435,8 @@ Instead, the application stores memory in a database and provides it to the LLM 
 - Preferred Cloud = AWS
 
 Memory stores user or application preferences—not company documents.
+
+Memory is optional. An AI application can work without memory, but memory makes interactions more personalized and reduces repetitive questions.
 
 ---
 
@@ -514,10 +519,10 @@ Reasoning happens throughout the workflow, not just once.
               ⚙️ System Prompt (Defines AI Behavior & Response Format)
                                        │
                                        ▼
-                          🤖 AI Agent (Plans & Reasons)
+                          🤖 AI Agent (Planning + Reasoning)
                                        │
                                        ▼
-                          🧠 LLM (GPT, Claude, Gemini, Llama)
+                          🧠 LLM (Decision Making)
                                        │
                Understands the request and decides what is needed
                                        │
@@ -547,6 +552,18 @@ Retrieve Relevant Documents              Kubernetes / AWS / GitHub / Jira / Slac
                                          ▼
                              🤖 Assistant Message (Response)
 ```
+---
+
+# 📋 Quick Reference
+
+| Concept | Purpose |
+|----------|---------|
+| LLM | Thinks and generates responses |
+| RAG | Retrieves company knowledge |
+| Memory | Remembers user/application preferences |
+| Tool Calling | Executes external actions |
+| MCP | Standard way to access external tools |
+| Python Application | Orchestrates the entire workflow |
 
 ---
 

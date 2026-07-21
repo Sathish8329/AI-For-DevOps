@@ -1,4 +1,4 @@
-# 🏗️ AI Architectures for DevOps Engineers
+# 🏗️ AI Architectures for DevOps Engineers (v1.0)
 
 This document contains the architectures and workflows learned throughout this repository.
 
@@ -8,9 +8,14 @@ As we progress through the lessons, new architectures will be added.
 
 # 📚 Architectures Covered
 
-- AI Application Architecture
-- RAG Architecture
-- Tool Calling (Function Calling) Architecture
+- End-to-End AI Application Architecture
+- Retrieval-Augmented Generation (RAG) Architecture
+- Tool Calling Architecture
+- AI Agent Architecture
+- Memory Architecture
+- Model Context Protocol (MCP) Architecture
+- Planning & Reasoning Workflow
+- Enterprise AI Agent Architecture
 
 ---
 
@@ -181,7 +186,7 @@ scale_deployment()
     ↓
 Python
     ↓
-Kubernetes
+Kubernetes#
     ↓
 Deployment Scaled
     ↓
@@ -189,46 +194,234 @@ LLM
     ↓
 User
 ```
+---
 
 ---
 
-# 🎯 Key Learnings
+# 4️⃣ AI Agent Architecture
 
-✅ LLMs are responsible for reasoning.
+```text
+                    👤 User
+                       │
+                       ▼
+                  💬 Prompt
+                       │
+                       ▼
+                  🤖 AI Agent
+                       │
+                       ▼
+                 📝 Planning
+                       │
+                       ▼
+                 🧠 Reasoning
+                       │
+       ┌───────────────┼────────────────┐
+       │               │                │
+       ▼               ▼                ▼
+📚 Need Knowledge? 🔧 Need Action? 🧠 Need Memory?
+       │               │                │
+       ▼               ▼                ▼
+      RAG        Tool Calling       Memory
+       │               │                │
+       └───────────────┼────────────────┘
+                       │
+                       ▼
+                  🧠 LLM
+                       │
+                       ▼
+             🤖 Assistant Response
+```
 
-✅ Python applications are responsible for execution.
+## 📖 Purpose
 
-✅ RAG retrieves company knowledge.
+An AI Agent is more than an LLM. It can:
 
-✅ Tool Calling interacts with external systems.
-
-✅ Embeddings convert text into vectors.
-
-✅ Vector Databases store embeddings for semantic search.
-
-✅ Prompts define the user's request.
-
-✅ System Prompts define how the AI should behave.
-
-✅ Assistant Messages are the AI's responses.
+- Create plans
+- Reason through problems
+- Retrieve company knowledge (RAG)
+- Use Memory
+- Call external tools
+- Complete multi-step tasks
 
 ---
 
-# 🚀 Upcoming Architectures
+# 5️⃣ Memory Architecture
 
-As we continue learning, this document will be expanded with:
+```text
+        👤 User
+           │
+           ▼
+      🤖 AI Agent
+           │
+           ▼
+   🧠 Memory Database
+           │
+           ▼
+ Retrieve User Preferences
+           │
+           ▼
+          🧠 LLM
+           │
+           ▼
+   🤖 Assistant Response
+```
 
-- AI Agents
+## 📖 Purpose
+
+Memory stores useful user or application preferences outside the LLM.
+
+### Examples
+
+- Default namespace
+- Preferred cloud
+- Default AWS region
+- Preferred Kubernetes cluster
+
+---
+
+# 6️⃣ MCP Architecture
+
+```text
+              🤖 AI Agent
+                   │
+                   ▼
+            🔧 Tool Calling
+                   │
+                   ▼
+              🔌 MCP Client
+                   │
+     ┌─────────────┼─────────────┐
+     │             │             │
+     ▼             ▼             ▼
+Kubernetes     GitHub         Jira
+    MCP          MCP           MCP
+     │             │             │
+     ▼             ▼             ▼
+ AWS MCP      Slack MCP   Prometheus MCP
+     │             │             │
+     └─────────────┼─────────────┘
+                   │
+                   ▼
+          🌍 External Systems
+                   │
+                   ▼
+              Return Results
+                   │
+                   ▼
+                 🧠 LLM
+                   │
+                   ▼
+          🤖 Assistant Response
+```
+
+## 📖 Purpose
+
+MCP (Model Context Protocol) provides a standard way for AI Agents to communicate with external systems.
+
+---
+
+# 7️⃣ Planning & Reasoning Workflow
+
+```text
+        👤 User
+           │
+           ▼
+      🤖 AI Agent
+           │
+           ▼
+      📝 Create Plan
+           │
+           ▼
+      📋 Task List
+           │
+           ▼
+      ▶ Execute Step
+           │
+           ▼
+      🧠 Reason
+           │
+           ▼
+    Need Another Tool?
+           │
+      Yes──┘
+           │
+           ▼
+   🔧 Tool Calling / MCP
+           │
+           ▼
+      Return Result
+           │
+           ▼
+      🧠 Reason Again
+           │
+           ▼
+         ✅ Finished
+```
+
+## 📖 Purpose
+
+Planning breaks work into steps.
+
+Reasoning analyzes the result of each step and decides what to do next.
+
+---
+
+# 8️⃣ Enterprise AI Agent Architecture
+
+```text
+                                👤 User
+                                   │
+                                   ▼
+                           💬 User Prompt
+                                   │
+                                   ▼
+                              🤖 AI Agent
+                        (Planning + Reasoning)
+                                   │
+                                   ▼
+                          🧠 LLM (Decision Making)
+                                   │
+        ┌──────────────────────────┼──────────────────────────┐
+        │                          │                          │
+        ▼                          ▼                          ▼
+     📚 RAG                   🧠 Memory               🔧 Tool Calling
+        │                          │                          │
+        ▼                          ▼                          ▼
+ Vector Database            Application DB              MCP Client
+        │                          │                          │
+        └───────────────┬──────────┴──────────┬───────────────┘
+                        │                     │
+                        ▼                     ▼
+               Kubernetes MCP          GitHub MCP
+               AWS MCP                 Jira MCP
+               Slack MCP               Prometheus MCP
+                        │
+                        ▼
+                🌍 External Systems
+                        │
+                        ▼
+                📥 Results Returned
+                        │
+                        ▼
+                🧠 AI Agent Reasons
+                        │
+                        ▼
+             🤖 Friendly Final Response
+```
+
+## 📖 Purpose
+
+This architecture combines everything learned:
+
+- Prompt Engineering
+- LLM
+- AI Agent
+- Planning
+- Reasoning
+- RAG
 - Memory
-- Multi-Agent Systems
-- MCP (Model Context Protocol)
-- Agentic RAG
-- AI Observability
-- AI Workflows
-- Planning & Reasoning
-- AI Security
-- AI Deployment Patterns
+- Tool Calling
+- MCP
+- External Systems
 
----
-
-📌 This document will continue to evolve as new lessons and projects are added.
+It represents a modern enterprise AI application.

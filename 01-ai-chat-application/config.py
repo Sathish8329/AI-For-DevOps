@@ -5,3 +5,4 @@ load_dotenv()
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 MODEL = os.getenv("MODEL", "gpt-5.5")
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")

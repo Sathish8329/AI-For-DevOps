@@ -69,7 +69,7 @@ During this project, the following concepts were covered:
 Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/AI-For-DevOps.git
+git clone https://github.com/Sathish8329/AI-For-DevOps.git
 ```
 
 Navigate to the project
